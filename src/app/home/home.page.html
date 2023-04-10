@@ -11,133 +11,149 @@
         </ion-toolbar>
     </ion-header>
 
-        <ion-card-header>
-            <ion-card-title>
-                <ion-list-header>
-                    <ion-icon id="list-header-item" name="phone-portrait-outline"></ion-icon>
-                    <ion-label id="list-header-item">Info</ion-label>
-                </ion-list-header>
-            </ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-list>
-                <ion-item>
-                    <ion-label>Id</ion-label>
-                    {{ device.deviceId?.uuid }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Name</ion-label>
-                    {{ device.deviceInfo?.name ?? '-' }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Model</ion-label>
-                    {{ device.deviceInfo?.model }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Platform</ion-label>
-                    {{ device.deviceInfo?.platform }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Operating system</ion-label>
-                    {{ device.deviceInfo?.operatingSystem }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Version (OS)</ion-label>
-                    {{ device.deviceInfo?.osVersion }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Manufacturer</ion-label>
-                    {{ device.deviceInfo?.manufacturer?.length ? device.deviceInfo?.manufacturer : '-' }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Virtual device</ion-label>
-                    {{ device.deviceInfo?.isVirtual ? 'yes' : 'no' }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Memory used</ion-label>
-                    {{ device.deviceInfo?.memUsed ?? '-' }}
-                </ion-item>
-
-                <ion-item>
-                    <ion-label>Web view version</ion-label>
-                    {{ device.deviceInfo?.webViewVersion ?? '-' }}
-                </ion-item>
-            </ion-list>
-        </ion-card-content>
-
-
-        <ion-card-header>
+    <ion-card-header>
+        <ion-card-title>
             <ion-list-header>
-                <ion-icon id="list-header-item" name="pie-chart-outline"></ion-icon>
-                <ion-label id="list-header-item">Disk space</ion-label>
+                <ion-icon id="list-header-item" name="phone-portrait-outline"></ion-icon>
+                <ion-label id="list-header-item">Info</ion-label>
             </ion-list-header>
-        </ion-card-header>
+        </ion-card-title>
+    </ion-card-header>
 
-        <ion-card-content>
-            <ion-item>
-                <ion-label>System</ion-label>
-                {{ device.deviceInfo?.diskTotal ?? '-' }}
+    <ion-card-content>
+        <ion-list>
+            <ion-item button id="id">
+                <ion-label>Id</ion-label>
+                {{ device.deviceId?.uuid }}
             </ion-item>
+            <app-info-popover id="id" [text]="idInfoText"></app-info-popover>
 
-            <ion-item>
-                <ion-label>Free</ion-label>
-                {{ device.deviceInfo?.realDiskFree ?? '-' }}
+            <ion-item button id="name">
+                <ion-label>Name</ion-label>
+                {{ device.deviceInfo?.name ?? '-' }}
             </ion-item>
+            <app-info-popover id="name" [text]="nameInfoText"></app-info-popover>
 
-            <ion-item>
-                <ion-label>Total</ion-label>
-                {{ device.deviceInfo?.realDiskTotal ?? '-' }}
+            <ion-item button id="model">
+                <ion-label>Model</ion-label>
+                {{ device.deviceInfo?.model }}
             </ion-item>
-        </ion-card-content>
+            <app-info-popover id="model" [text]="modelInfoText"></app-info-popover>
 
-        <ion-card-header>
-            <ion-list-header>
-                <ion-icon id="list-header-item" name="battery-full-outline"></ion-icon>
-                <ion-label id="list-header-item">Battery</ion-label>
-            </ion-list-header>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-item>
-                <ion-label>Level</ion-label>
-                <ng-container *ngIf="device.batteryInfo?.batteryLevel; else dash">
-                    {{ device.batteryInfo?.batteryLevel | percent }}
-                </ng-container>
-                <ng-template #dash>-</ng-template>
+            <ion-item button id="platform">
+                <ion-label>Platform</ion-label>
+                {{ device.deviceInfo?.platform }}
             </ion-item>
+            <app-info-popover id="platform" [text]="platformInfoText"></app-info-popover>
 
-            <ion-item>
-                <ion-label>Charging</ion-label>
-                {{ device.batteryInfo?.isCharging ? 'yes' : 'no' }}
+            <ion-item button id="os">
+                <ion-label>Operating system</ion-label>
+                {{ device.deviceInfo?.operatingSystem }}
             </ion-item>
-        </ion-card-content>
+            <app-info-popover id="os" [text]="osInfoText"></app-info-popover>
 
-        <ion-card-header>
-            <ion-list-header>
-                <ion-icon id="list-header-item" name="language-outline"></ion-icon>
-                <ion-label id="list-header-item">Language</ion-label>
-            </ion-list-header>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-item>
-                <ion-label>Code</ion-label>
-                {{ device.languageCode?.value }}
+            <ion-item button id="version">
+                <ion-label>Version (OS)</ion-label>
+                {{ device.deviceInfo?.osVersion }}
             </ion-item>
+            <app-info-popover id="version" [text]="versionInfoText"></app-info-popover>
 
-            <ion-item>
-                <ion-label>Tag</ion-label>
-                {{ device.languageTag?.value ?? '-' }}
+            <ion-item button id="manufacturer">
+                <ion-label>Manufacturer</ion-label>
+                {{ device.deviceInfo?.manufacturer?.length ? device.deviceInfo?.manufacturer : '-' }}
             </ion-item>
-        </ion-card-content>
+            <app-info-popover id="manufacturer" [text]="manufacturerInfoText"></app-info-popover>
+
+            <ion-item button id="virtual">
+                <ion-label>Virtual device</ion-label>
+                {{ device.deviceInfo?.isVirtual ? 'yes' : 'no' }}
+            </ion-item>
+            <app-info-popover id="virtual" [text]="virtualInfoText"></app-info-popover>
+
+            <ion-item button id="memory">
+                <ion-label>Memory used</ion-label>
+                {{ device.deviceInfo?.memUsed ?? '-' }}
+            </ion-item>
+            <app-info-popover id="memory" [text]="memInfoText"></app-info-popover>
+
+            <ion-item button id="webviewversion">
+                <ion-label>Web view version</ion-label>
+                {{ device.deviceInfo?.webViewVersion ?? '-' }}
+            </ion-item>
+            <app-info-popover id="webviewversion" [text]="webViewInfoText"></app-info-popover>
+        </ion-list>
+    </ion-card-content>
+
+    <ion-card-header>
+        <ion-list-header>
+            <ion-icon id="list-header-item" name="pie-chart-outline"></ion-icon>
+            <ion-label id="list-header-item">Disk space</ion-label>
+        </ion-list-header>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-item button id="diskTotal">
+            <ion-label>System</ion-label>
+            {{ device.deviceInfo?.diskTotal ?? '-' }}
+        </ion-item>
+        <app-info-popover id="diskTotal" [text]="diskTotalInfoText"></app-info-popover>
+
+        <ion-item button id="realDiskFree">
+            <ion-label>Free</ion-label>
+            {{ device.deviceInfo?.realDiskFree ?? '-' }}
+        </ion-item>
+        <app-info-popover id="realDiskFree" [text]="realDiskFreeInfoText"></app-info-popover>
+
+        <ion-item button id="realDiskTotal">
+            <ion-label>Total</ion-label>
+            {{ device.deviceInfo?.realDiskTotal ?? '-' }}
+        </ion-item>
+        <app-info-popover id="realDiskTotal" [text]="realDiskTotalInfoText"></app-info-popover>
+    </ion-card-content>
+
+    <ion-card-header>
+        <ion-list-header>
+            <ion-icon id="list-header-item" name="battery-full-outline"></ion-icon>
+            <ion-label id="list-header-item">Battery</ion-label>
+        </ion-list-header>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-item button id="level">
+            <ion-label>Level</ion-label>
+            <ng-container *ngIf="device.batteryInfo?.batteryLevel; else dash">
+                {{ device.batteryInfo?.batteryLevel | percent }}
+            </ng-container>
+            <ng-template #dash>-</ng-template>
+        </ion-item>
+        <app-info-popover id="level" [text]="batteryLevelInfoText"></app-info-popover>
+
+        <ion-item button id="charging">
+            <ion-label>Charging</ion-label>
+            {{ device.batteryInfo?.isCharging ? 'yes' : 'no' }}
+        </ion-item>
+        <app-info-popover id="charging" [text]="chargingInfoText"></app-info-popover>
+    </ion-card-content>
+
+    <ion-card-header>
+        <ion-list-header>
+            <ion-icon id="list-header-item" name="language-outline"></ion-icon>
+            <ion-label id="list-header-item">Language</ion-label>
+        </ion-list-header>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-item button id="code">
+            <ion-label>Code</ion-label>
+            {{ device.languageCode?.value }}
+        </ion-item>
+        <app-info-popover id="code" [text]="languageCodeInfoText"></app-info-popover>
+
+        <ion-item button id="tag">
+            <ion-label>Tag</ion-label>
+            {{ device.languageTag?.value ?? '-' }}
+        </ion-item>
+        <app-info-popover id="tag" [text]="languageTagInfoText"></app-info-popover>
+    </ion-card-content>
 
 </ion-content>
