@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-device-info',
+  appId: 'iktikn.ionic.device',
+  appName: 'Device info',
   webDir: 'www',
   bundledWebRuntime: false
 };
